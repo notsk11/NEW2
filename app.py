@@ -77,12 +77,10 @@ with gr.Blocks(css=css) as demo:
         with gr.Column():
           prompt_i2i = gr.Textbox(lines=3, show_label=False, placeholder="Place Prompts here...", elem_classes="prompt_i2i")
           negative_prompt_i2i = gr.Textbox(lines=3, show_label=False, placeholder="Place Negative Prompts here...", elem_classes="negative_prompt_i2i")
-        with gr.Column():
-          generate_i2i = gr.Button(value="Generate", elem_classes="generate_i2i")
       with gr.Tab("Img2Img", elem_classes="img2img_tab2"):
         with gr.Row():
             with gr.Column():
-              image_input_i2i = gr.Image(elem_classes="image_input_i2i", tool='sketch', type='pil')
+              image_input_i2i = gr.Image(elem_classes="image_input_i2i")
               resize_mode_i2i = gr.CheckboxGroup(value="Just Resize", label="Resize Mode", elem_classes="resize_mode_i2i", choices=["Just Resize", "Crop and Resize", "Resize and Fill", "Just Resize(Latent Upscale)"])
               scheduler_i2i = gr.Dropdown(elem_classes="scheduler_i2i", label="Sampling Methods", choices=[
               "PNDM",
@@ -115,9 +113,9 @@ with gr.Blocks(css=css) as demo:
             with gr.Column():
               image_output_i2i = gr.Gallery(elem_classes="image_output_i2i")
               metadata_i2i = gr.Textbox(elem_classes="metadata_i2i", label="Metadata", lines=10, show_copy_button=True)
+              generate_i2i = gr.Button(value="Generate", elem_classes="generate_i2i")
         with gr.Accordion(elem_classes="zoom_i2i_accordion", label="Zoomed", open=False):
           image_output_zoom_i2i = gr.Gallery(elem_classes="image_output_zoomed_i2i", container=True, interactive=True)
-          load_model_global.click(fn=load_pipeline, inputs=[model_global])
           scheduler_i2i.change(fn=update_scheduler, inputs=[scheduler_i2i])
           generate_i2i.click(fn=img2img, inputs=[prompt_i2i, negative_prompt_i2i, height_i2i, width_i2i, num_inference_steps_i2i, guidance_scale_i2i, strength_i2i, batch_count_i2i, seed_input_i2i], outputs=[image_output_i2i, image_output_zoom_i2i, metadata_i2i])
       with gr.Tab("Inpaint", elem_classes="img2img_tab3"):
@@ -161,11 +159,11 @@ with gr.Blocks(css=css) as demo:
             with gr.Column():
               image_output_inpaint = gr.Gallery(elem_classes="image_output_inpaint")
               metadata_inpaint = gr.Textbox(elem_classes="metadata_inpaint", label="Metadata", lines=10, show_copy_button=True)
+              generate_inpaint = gr.Button(value="Generate", elem_classes="generate_inpaint")
         with gr.Accordion(elem_classes="zoom_inpaint_accordion", label="Zoomed", open=False):
           image_output_zoom_inpaint = gr.Gallery(elem_classes="image_output_zoomed_inpaint", container=True, interactive=True)
-          load_model_global.click(fn=load_pipeline, inputs=[model_global])
           scheduler_inpaint.change(fn=update_scheduler, inputs=[scheduler_inpaint])
-          generate_i2i.click(fn=inpaint, inputs=[prompt_i2i, negative_prompt_i2i, height_inpaint, width_inpaint, num_inference_steps_inpaint, guidance_scale_inpaint, batch_count_inpaint, seed_input_inpaint], outputs=[image_output_inpaint, image_output_zoom_inpaint, metadata_inpaint])
+          generate_inpaint.click(fn=inpaint, inputs=[prompt_i2i, negative_prompt_i2i, image_input_inpaint, height_inpaint, width_inpaint, num_inference_steps_inpaint, guidance_scale_inpaint, batch_count_inpaint, seed_input_inpaint], outputs=[image_output_inpaint, image_output_zoom_inpaint, metadata_inpaint])
 
 
 demo.launch(share=True, debug=True)
