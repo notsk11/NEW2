@@ -157,7 +157,8 @@ div.form {
   height: 90px !important;
 }
 .generate_i2i {
-  left: 555px;
+  top: -245px !important;
+  left: 248px !important;
   width: 330px !important;
   height: 85px !important;
   position: absolute;
@@ -343,7 +344,14 @@ div.form {
   top: -10px !important;
   border: none !important;
 }
-
+.generate_inpaint {
+  top: -245px !important;
+  left: 248px !important;
+  width: 330px !important;
+  height: 85px !important;
+  position: absolute;
+  background-image: linear-gradient(to bottom right, orange, red, yellow) !important;
+}
   /* IMAGE ZOOMED OUTPUT INPAINT */
 
 .zoom_inpaint_accordion {
